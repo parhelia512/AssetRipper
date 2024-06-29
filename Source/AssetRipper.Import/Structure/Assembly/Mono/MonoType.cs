@@ -1,5 +1,5 @@
 ﻿using AsmResolver.DotNet;
-using AsmResolver.DotNet.Signatures.Types;
+using AsmResolver.DotNet.Signatures;
 using AssetRipper.Import.Structure.Assembly.Serializable;
 using AssetRipper.SerializationLogic;
 using AssetRipper.SerializationLogic.Extensions;
@@ -168,12 +168,12 @@ namespace AssetRipper.Import.Structure.Assembly.Mono
 						return false;
 					}
 
-					result = new Field(fieldType, arrayDepth, name);
+					result = new Field(fieldType, arrayDepth, name, true);
 					failureReason = null;
 					return true;
 
 				case CorLibTypeSignature corLibTypeSignature:
-					result = new Field(SerializablePrimitiveType.GetOrCreate(corLibTypeSignature.ToPrimitiveType()), arrayDepth, name);
+					result = new Field(SerializablePrimitiveType.GetOrCreate(corLibTypeSignature.ToPrimitiveType()), arrayDepth, name, true);
 					failureReason = null;
 					return true;
 
@@ -204,7 +204,7 @@ namespace AssetRipper.Import.Structure.Assembly.Mono
 			}
 			else if (TryCreate(typeSignature, typeCache, out MonoType? monoType, out failureReason))
 			{
-				result = new(monoType, arrayDepth, name);
+				result = new(monoType, arrayDepth, name, true);
 				return true;
 			}
 			else
