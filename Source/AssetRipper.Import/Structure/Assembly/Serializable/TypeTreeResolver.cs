@@ -10,11 +10,17 @@ namespace AssetRipper.Import.Structure.Assembly.Serializable;
 /// </summary>
 internal sealed class TypeTreeResolver : ITypeResolver
 {
+	private static readonly TypeTreeResolver empty = new([]);
 	private readonly IReadOnlyList<SerializedTypeReference> referenceTypes;
 
-	public TypeTreeResolver(IReadOnlyList<SerializedTypeReference> referenceTypes)
+	private TypeTreeResolver(IReadOnlyList<SerializedTypeReference> referenceTypes)
 	{
 		this.referenceTypes = referenceTypes;
+	}
+
+	public static TypeTreeResolver Create(IReadOnlyList<SerializedTypeReference> referenceTypes)
+	{
+		return referenceTypes.Count == 0 ? empty : new TypeTreeResolver(referenceTypes);
 	}
 
 	public bool TryGetSerializableType(

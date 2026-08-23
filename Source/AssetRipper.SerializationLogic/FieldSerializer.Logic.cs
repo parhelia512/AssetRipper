@@ -9,7 +9,7 @@ public readonly partial struct FieldSerializer(UnityVersion version, RuntimeCont
 	/// <summary>
 	/// Not sure about the exact version boundary, structs are supposedly only serializable on 4.5.0 and greater.
 	/// </summary>
-	private bool IsStructSerializable { get; } = version.GreaterThanOrEquals(4, 5);
+	private bool IsStructSerializable => version.GreaterThanOrEquals(4, 5);
 	private bool IsInt8Serializable => IsInt16Serializable;
 	/// <summary>
 	/// Not sure about the exact version boundary, but int8, int16, uint16, and uint32 were added around 5.0.0.
@@ -17,7 +17,7 @@ public readonly partial struct FieldSerializer(UnityVersion version, RuntimeCont
 	/// <remarks>
 	/// <see href="https://github.com/AssetRipper/AssetRipper/issues/1851"/>
 	/// </remarks>
-	private bool IsInt16Serializable { get; } = version.GreaterThanOrEquals(5);
+	private bool IsInt16Serializable => version.GreaterThanOrEquals(5);
 	private bool IsUInt32Serializable => IsInt16Serializable;
 	private bool IsCharSerializable => IsInt64Serializable;
 	/// <summary>
@@ -26,7 +26,7 @@ public readonly partial struct FieldSerializer(UnityVersion version, RuntimeCont
 	/// <remarks>
 	/// <see href="https://github.com/AssetRipper/AssetRipper/issues/647"/>
 	/// </remarks>
-	private bool IsInt64Serializable { get; } = version.GreaterThanOrEquals(2017);
+	private bool IsInt64Serializable => version.GreaterThanOrEquals(2017);
 	/// <summary>
 	/// Prior to the first alpha of 2020, System.Collections.Generic.List`1 and UnityEngine.ExposedReference`1 were the only supported generic types.
 	/// </summary>
@@ -38,7 +38,7 @@ public readonly partial struct FieldSerializer(UnityVersion version, RuntimeCont
 	/// <remarks>
 	/// <see href="https://unity.com/blog/engine-platform/serializereference-improvements-in-unity-2021-lts"/>
 	/// </remarks>
-	private bool HasStableReferenceIds { get; } = version.GreaterThanOrEquals(2021, 2, 0, UnityVersionType.Alpha, 19);
+	private bool HasStableReferenceIds => version.GreaterThanOrEquals(2021, 2, 0, UnityVersionType.Alpha, 19);
 
 	private bool WillUnitySerialize(FieldDefinition fieldDefinition, TypeSignature fieldType)
 	{
